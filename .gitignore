@@ -1,0 +1,10 @@
+# Keep local runtime caches out of Git.
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+node_modules/
+.pytest_cache/
+.DS_Store
+.env.local
+.env.*.local

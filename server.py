@@ -106,7 +106,10 @@ def generate():
             output = output[0]
         if not isinstance(output, str) or not output.startswith("https://"):
             raise ValueError("Replicate did not return an HTTPS image URL.")
-        with urllib.request.urlopen(output, timeout=60) as response:
+        download_request = urllib.request.Request(
+            output, headers={"User-Agent": "memory-garden/1.0"}
+        )
+        with urllib.request.urlopen(download_request, timeout=60) as response:
             result_bytes = response.read()
         if not result_bytes.startswith(b"\x89PNG\r\n\x1a\n"):
             raise ValueError("The generated image download was not a PNG.")

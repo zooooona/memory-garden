@@ -25,6 +25,7 @@ class TextModelTests(unittest.TestCase):
         self.assertEqual(request.get_method(), "POST")
         self.assertEqual(json.loads(request.data)["input"], {"prompt": "test memory", "thinking_level": "low"})
         self.assertEqual(request.get_header("Authorization"), "Bearer test-token")
+        self.assertEqual(request.get_header("User-agent"), "memory-garden/1.0")
 
     def test_poll_until_complete_and_join_chunks(self):
         result, send = self.run_predictions([

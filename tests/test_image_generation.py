@@ -58,7 +58,11 @@ class ImageGenerationTests(unittest.TestCase):
                 self.assertEqual(inputs["output_format"], "png")
                 self.assertNotIn("thinking_level", inputs)
                 self.assertEqual(send.call_args_list[1].args[0].get_method(), "GET")
-                self.assertEqual(send.call_args_list[2].args[0], OUTPUT_URL)
+                download_request = send.call_args_list[2].args[0]
+                self.assertEqual(download_request.full_url, OUTPUT_URL)
+                self.assertIsNone(download_request.get_header("Authorization"))
+                for call in send.call_args_list:
+                    self.assertEqual(call.args[0].get_header("User-agent"), "memory-garden/1.0")
                 self.assertEqual(send.call_count, 3)
 
     def test_upstream_500_is_reported_without_duplicate_generation(self):

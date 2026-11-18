@@ -21,7 +21,11 @@ def run_prediction(model, model_input, api_token, timeout=180):
         remaining = deadline - time.monotonic()
         if remaining <= 0:
             raise TimeoutError("Timed out waiting for the Replicate prediction.")
-        headers = {"Authorization": f"Bearer {api_token}", "Accept": "application/json"}
+        headers = {
+            "Authorization": f"Bearer {api_token}",
+            "Accept": "application/json",
+            "User-Agent": "memory-garden/1.0",
+        }
         data = None
         if payload is not None:
             data = json.dumps(payload).encode("utf-8")

@@ -38,6 +38,14 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
+If PowerShell cannot find `uv`, run:
+
+```powershell
+$env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+```
+
+This adds uv's installation folder to PATH for the current terminal session, allowing PowerShell to find `uv` without permanently changing your system settings.
+
 After installation, **close and reopen your terminal**. If you are using the terminal inside VS Code, restart VS Code as well.
 
 Check that uv is available:
